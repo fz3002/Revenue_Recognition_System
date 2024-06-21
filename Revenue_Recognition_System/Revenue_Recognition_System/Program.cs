@@ -1,6 +1,9 @@
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using Revenue_Recognition_System.Context;
+using Revenue_Recognition_System.Models;
+using Revenue_Recognition_System.Repositories;
+using Revenue_Recognition_System.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +16,12 @@ builder.Services.AddDbContext<RRSystemDbContext>(opt =>
 {
     opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<INaturalPersonRepository, NaturalPersonRepository>();
+builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

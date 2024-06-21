@@ -15,5 +15,24 @@ public class NaturalPersonEntityTypeConfiguration : IEntityTypeConfiguration<Nat
         builder.Property(np => np.PhoneNumber).IsRequired().HasMaxLength(12);
         builder.Property(np => np.Email).IsRequired().HasMaxLength(50);
         builder.Property(np => np.Pesel).IsRequired().HasMaxLength(11);
+
+        builder.HasData(
+            new NaturalPerson("12345678901")
+            {
+                Name = "John",
+                Surname = "Doe",
+                Address = "123 Main St",
+                Email = "john.doe@example.com",
+                PhoneNumber = "123-456-7890"
+            },
+            new NaturalPerson("09876543210")
+            {
+                Name = "Jane",
+                Surname = "Smith",
+                Address = "456 Elm St",
+                Email = "jane.smith@example.com",
+                PhoneNumber = "098-765-4321"
+            }
+        );
     }
 }

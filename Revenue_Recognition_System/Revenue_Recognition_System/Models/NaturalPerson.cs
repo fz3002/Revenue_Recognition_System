@@ -2,7 +2,7 @@ namespace Revenue_Recognition_System.Models;
 
 public class NaturalPerson
 {
-    public int IdPerson { get; set; }
+    public int IdPerson { get; private set; }
     public string Name { get; set; }
     public string Surname { get; set; }
     public string Address { get; set; }

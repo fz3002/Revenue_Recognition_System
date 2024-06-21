@@ -5,11 +5,11 @@ namespace Revenue_Recognition_System.Controllers;
 
 [ApiController]
 [Route("api/Deal")]
-public class DealController : ControllerBase
+public class ProductController : ControllerBase
 {
-    private readonly IDealService _service;
+    private readonly IProductService _service;
 
-    public DealController(IDealService service)
+    public ProductController(IProductService service)
     {
         _service = service;
     }
