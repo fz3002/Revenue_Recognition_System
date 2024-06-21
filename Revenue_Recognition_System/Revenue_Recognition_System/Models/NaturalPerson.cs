@@ -8,7 +8,12 @@ public class NaturalPerson
     public string Address { get; set; }
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
-    public string Pesel { get; private set; }
+    public string Pesel { get; }
+
+    private NaturalPerson()
+    {
+
+    }
 
     public NaturalPerson(string pesel)
     {
