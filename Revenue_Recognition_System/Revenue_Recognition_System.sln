@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revenue_Recognition_System", "Revenue_Recognition_System\Revenue_Recognition_System.csproj", "{CF21E449-78DF-4244-9FDF-76991BA06FAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Revenue_Recognition_System_Test", "Revenue_Recognition_System_Test\Revenue_Recognition_System_Test.csproj", "{86FC49A0-59D3-4996-9E4F-642557DAADD3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CF21E449-78DF-4244-9FDF-76991BA06FAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF21E449-78DF-4244-9FDF-76991BA06FAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF21E449-78DF-4244-9FDF-76991BA06FAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF21E449-78DF-4244-9FDF-76991BA06FAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86FC49A0-59D3-4996-9E4F-642557DAADD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86FC49A0-59D3-4996-9E4F-642557DAADD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86FC49A0-59D3-4996-9E4F-642557DAADD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86FC49A0-59D3-4996-9E4F-642557DAADD3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
