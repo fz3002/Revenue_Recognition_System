@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Revenue_Recognition_System.Services;
 
 namespace Revenue_Recognition_System.Controllers;
 
@@ -7,9 +8,9 @@ namespace Revenue_Recognition_System.Controllers;
 
 public class ClientController : ControllerBase
 {
-    private readonly ServiceInterfaceName _service;
+    private readonly IClientService _service;
 
-    public ClientController(ServiceInterfaceName service)
+    public ClientController(IClientService service)
     {
         _service = service;
     }

@@ -22,14 +22,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/franc/schoolwork/APBD/Revenue_Recognition_System/Revenue_Recognition_System",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.Ravenue_Recognition_System: http">
     <configuration name="Ravenue_Recognition_System: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/Ravenue_Recognition_System/Ravenue_Recognition_System.csproj" />
@@ -73,6 +74,7 @@
       <workItem from="1718981594740" duration="29000" />
       <workItem from="1718981705198" duration="26000" />
       <workItem from="1718981750615" duration="67000" />
+      <workItem from="1718983410334" duration="16000" />
     </task>
     <servers />
   </component>

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Revenue_Recognition_System.Services;
 
 namespace Revenue_Recognition_System.Controllers;
 
@@ -6,9 +7,9 @@ namespace Revenue_Recognition_System.Controllers;
 [Route("api/Deal")]
 public class DealController : ControllerBase
 {
-    private readonly ServiceInterfaceName _service;
+    private readonly IDealService _service;
 
-    public DealController(ServiceInterfaceName service)
+    public DealController(IDealService service)
     {
         _service = service;
     }
