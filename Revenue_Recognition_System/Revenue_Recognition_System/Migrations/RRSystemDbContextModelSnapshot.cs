@@ -53,7 +53,7 @@ namespace Revenue_Recognition_System.Migrations
 
                     b.HasKey("IdClient");
 
-                    b.ToTable("Clients");
+                    b.ToTable("Clients", (string)null);
 
                     b.UseTptMappingStrategy();
                 });
@@ -76,7 +76,7 @@ namespace Revenue_Recognition_System.Migrations
                         .IsUnique()
                         .HasFilter("[KRS] IS NOT NULL");
 
-                    b.ToTable("Companies");
+                    b.ToTable("Companies", (string)null);
 
                     b.HasData(
                         new
@@ -124,7 +124,7 @@ namespace Revenue_Recognition_System.Migrations
                         .IsUnique()
                         .HasFilter("[Pesel] IS NOT NULL");
 
-                    b.ToTable("People");
+                    b.ToTable("People", (string)null);
 
                     b.HasData(
                         new

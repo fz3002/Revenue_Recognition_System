@@ -50,4 +50,9 @@ public class ClientRepository : IClientRepository
     {
         await _unitOfWork.GetDBContext().Companies.AddAsync(client, cancellationToken);
     }
+
+    public async Task DeleteClient(NaturalPerson naturalPerson, CancellationToken cancellationToken)
+    {
+        _unitOfWork.GetDBContext().People.Remove(naturalPerson);
+    }
 }

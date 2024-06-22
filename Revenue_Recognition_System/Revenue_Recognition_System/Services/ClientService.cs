@@ -68,9 +68,14 @@ public class ClientService : IClientService
         );
     }
 
-    public Task DeleteClientAsync(int id, CancellationToken cancellationToken)
+    public async Task DeleteClientAsync(int id, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var clientCompany = await _clientRepository.GetCompanyAsync(id, cancellationToken);
+        EnsureNotACompany(clientCompany);
+        var clientToDelete = await _clientRepository.GetNaturalPersonAsync(id, cancellationToken);
+        EnsureClientExists(clientToDelete, id);
+        await _clientRepository.DeleteClient(clientToDelete, cancellationToken);
+        await _unitOfWork.CommitAsync(cancellationToken);
     }
 
     public Task UpdateClientNaturalPersonAsync(int id, NaturalPersonDTO naturalPersonDto, CancellationToken cancellationToken)
@@ -127,6 +132,14 @@ public class ClientService : IClientService
         if (client != null)
         {
             throw new DomainException($"Client already exists");
+        }
+    }
+
+    private void EnsureNotACompany(Client? client)
+    {
+        if (client != null)
+        {
+            throw new DomainException($"Cannot delete client company");
         }
     }
 }

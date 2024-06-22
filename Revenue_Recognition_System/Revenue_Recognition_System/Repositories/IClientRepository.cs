@@ -11,4 +11,5 @@ public interface IClientRepository
     Task<Company?> GetCompanyAsync(string krs, CancellationToken cancellationToken);
     Task AddNaturalPersonAsync(NaturalPerson client, CancellationToken cancellationToken);
     Task AddCompanyAsync(Company client, CancellationToken cancellationToken);
+    Task DeleteClient(NaturalPerson naturalPerson, CancellationToken cancellationToken);
 }

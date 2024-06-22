@@ -6,11 +6,12 @@ namespace Revenue_Recognition_System.Interceptors;
 
 public class SoftDeleteInterceptor : SaveChangesInterceptor
 {
-    public override InterceptionResult<int> SavingChanges(
+    public override async ValueTask<InterceptionResult<int>> SavingChangesAsync(
         DbContextEventData eventData,
-        InterceptionResult<int> result)
+        InterceptionResult<int> result,
+        CancellationToken cancellationToken)
     {
-        if (eventData.Context is null) return result;
+        if (eventData.Context is null) return await base.SavingChangesAsync(eventData, result, cancellationToken);
 
         foreach (var entry in eventData.Context.ChangeTracker.Entries())
         {
@@ -19,6 +20,6 @@ public class SoftDeleteInterceptor : SaveChangesInterceptor
             delete.IsDeleted = true;
             delete.DeletedAt = DateTimeOffset.UtcNow;
         }
-        return result;
+        return await base.SavingChangesAsync(eventData, result, cancellationToken);
     }
 }
