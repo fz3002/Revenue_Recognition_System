@@ -13,6 +13,7 @@ public class NaturalPersonEntityTypeConfiguration : IEntityTypeConfiguration<Nat
         builder.Property(np => np.Name).IsRequired().HasMaxLength(100);
         builder.Property(np => np.Surname).IsRequired().HasMaxLength(200);
         builder.Property(np => np.Pesel).IsRequired().HasMaxLength(11);
+        builder.HasIndex(np => np.Pesel).IsUnique();
 
         builder.HasData(
             new NaturalPerson("12345678901")

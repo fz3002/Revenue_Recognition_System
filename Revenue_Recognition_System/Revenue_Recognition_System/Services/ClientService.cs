@@ -1,37 +1,74 @@
 using Revenue_Recognition_System.DTO;
+using Revenue_Recognition_System.Exceptions;
+using Revenue_Recognition_System.Models;
 using Revenue_Recognition_System.Repositories;
 
 namespace Revenue_Recognition_System.Services;
 
 public class ClientService : IClientService
 {
-    private ICompanyRepository _companyRepository;
-    private INaturalPersonRepository _naturalPersonRepository;
+    private IClientRepository _clientRepository;
     private IUnitOfWork _unitOfWork;
 
-    public ClientService(ICompanyRepository companyRepository, INaturalPersonRepository naturalPersonRepository, IUnitOfWork unitOfWork)
+    public ClientService(IClientRepository clientRepository, IUnitOfWork unitOfWork)
     {
-        _companyRepository = companyRepository;
-        _naturalPersonRepository = naturalPersonRepository;
+        _clientRepository = clientRepository;
         _unitOfWork = unitOfWork;
     }
 
-    public Task<NaturalPersonDTO> AddClientNaturalPersonAsync(NaturalPersonDTO personDto, CancellationToken cancellationToken)
+    public async Task<NaturalPersonDisplayDTO> AddClientNaturalPersonAsync(NaturalPersonDTO personDto, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var controlClient = await _clientRepository.GetNaturalPersonAsync(personDto.Pesel, cancellationToken);
+        EnsureClientNotInDatabase(controlClient);
+        var client = new NaturalPerson(personDto.Pesel)
+        {
+            Address = personDto.Address,
+            Email = personDto.Email,
+            Name = personDto.Name,
+            PhoneNumber = personDto.PhoneNumber,
+            Surname = personDto.Surname
+        };
+        await _clientRepository.AddNaturalPersonAsync(client, cancellationToken);
+        await _unitOfWork.CommitAsync(cancellationToken);
+        var createdClient = await _clientRepository.GetNaturalPersonAsync(personDto.Pesel, cancellationToken);
+        return new NaturalPersonDisplayDTO
+        (
+            createdClient.IdClient,
+            createdClient.Name,
+            createdClient.Surname,
+            createdClient.Address,
+            createdClient.Email,
+            createdClient.PhoneNumber,
+            createdClient.Pesel
+            );
     }
 
-    public Task<NaturalPersonDTO> AddClientCompanyAsync(CompanyDTO companyDto, CancellationToken cancellationToken)
+    public async Task<CompanyDisplayDTO> AddClientCompanyAsync(CompanyDTO companyDto, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var controlClient = await _clientRepository.GetCompanyAsync(companyDto.Krs, cancellationToken);
+        EnsureClientNotInDatabase(controlClient);
+        var client = new Company(companyDto.Krs)
+        {
+            Address = companyDto.Address,
+            Email = companyDto.Email,
+            CompanyName = companyDto.Name,
+            PhoneNumber = companyDto.PhoneNumber
+        };
+        await _clientRepository.AddCompanyAsync(client, cancellationToken);
+        await _unitOfWork.CommitAsync(cancellationToken);
+        var createdClient = await _clientRepository.GetCompanyAsync(companyDto.Krs, cancellationToken);
+        return new CompanyDisplayDTO
+        (
+            createdClient.IdClient,
+            createdClient.Address,
+            createdClient.Email,
+            createdClient.PhoneNumber,
+            createdClient.CompanyName,
+            createdClient.KRS
+        );
     }
 
-    public Task DeleteClientNaturalPersonAsync(int id, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task DeleteClientCompanyAsync(int id, CancellationToken cancellationToken)
+    public Task DeleteClientAsync(int id, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
@@ -46,14 +83,50 @@ public class ClientService : IClientService
         throw new NotImplementedException();
     }
 
-    public async Task<NaturalPersonDTO> GetClientNaturalPerson(int id, CancellationToken cancellationToken)
+    public async Task<NaturalPersonDisplayDTO> GetClientNaturalPersonAsync(int id, CancellationToken cancellationToken)
     {
-        var result = await _naturalPersonRepository.GetNaturalPersonAsync(id, cancellationToken);
-        return null;
+        var result = await _clientRepository.GetNaturalPersonAsync(id, cancellationToken);
+        EnsureClientExists(result, id);
+        return new NaturalPersonDisplayDTO
+        (
+            result.IdClient,
+            result.Name,
+            result.Surname,
+            result.Address,
+            result.Email,
+            result.PhoneNumber,
+            result.Pesel
+            );
     }
 
-    public Task<NaturalPersonDTO> GetClientCompany(int id, CancellationToken cancellationToken)
+    public async Task<CompanyDisplayDTO> GetClientCompanyAsync(int id, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var result = await _clientRepository.GetCompanyAsync(id, cancellationToken);
+        EnsureClientExists(result, id);
+        return new CompanyDisplayDTO
+        (
+            result.IdClient,
+            result.Address,
+            result.Email,
+            result.PhoneNumber,
+            result.CompanyName,
+            result.KRS
+        );
+    }
+
+    private void EnsureClientExists(Client? client, int id)
+    {
+        if (client == null)
+        {
+            throw new DomainException($"Client with id {id} doesn't exist");
+        }
+    }
+
+    private void EnsureClientNotInDatabase(Client? client)
+    {
+        if (client != null)
+        {
+            throw new DomainException($"Client already exists");
+        }
     }
 }

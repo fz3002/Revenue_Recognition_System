@@ -12,6 +12,7 @@ public class CompanyEntityTypeConfiguration : IEntityTypeConfiguration<Company>
         builder.HasBaseType<Client>();
         builder.Property(c => c.CompanyName).IsRequired().HasMaxLength(300);
         builder.Property(c => c.KRS).IsRequired().HasMaxLength(10);
+        builder.HasIndex(c => c.KRS).IsUnique();
 
         builder.HasData(
             new Company("1234567890")

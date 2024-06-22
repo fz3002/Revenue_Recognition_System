@@ -18,9 +18,8 @@ builder.Services.AddDbContext<RRSystemDbContext>(opt =>
 });
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<INaturalPersonRepository, NaturalPersonRepository>();
-builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 
 var app = builder.Build();
 

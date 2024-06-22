@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Revenue_Recognition_System.Context;
 
@@ -10,9 +11,11 @@ using Revenue_Recognition_System.Context;
 namespace Revenue_Recognition_System.Migrations
 {
     [DbContext(typeof(RRSystemDbContext))]
-    partial class RRSystemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240622170910_AddUniqueIndexOnPeselAndKRS")]
+    partial class AddUniqueIndexOnPeselAndKRS
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

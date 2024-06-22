@@ -15,32 +15,25 @@ public class ClientController : ControllerBase
     {
         _service = service;
     }
-    //TODO: Fix CreatedAtAction
+    //TODO: FIX ROUT NOT WORKING
     [HttpPost("naturalPeople")]
     public async Task<IActionResult> AddClientNaturalPersonAsync(NaturalPersonDTO personDto, CancellationToken cancellationToken)
     {
         var result = await _service.AddClientNaturalPersonAsync(personDto, cancellationToken);
-        return CreatedAtAction(nameof(GetClientNaturalPersonAsync), result);
+        return CreatedAtRoute("GetClientNaturalClient",new {id = result.IdClient}, result);
     }
 
     [HttpPost("companies")]
     public async Task<IActionResult> AddClientCompanyAsync(CompanyDTO companyDto, CancellationToken cancellationToken)
     {
         var result = await _service.AddClientCompanyAsync(companyDto, cancellationToken);
-        return CreatedAtAction(nameof(GetClientCompanyAsync), result);
+        return CreatedAtAction(nameof(AddClientCompanyAsync), new {id = result.IdClient}, result);
     }
 
-    [HttpDelete("naturalPeople/{id:int}")]
-    public async Task<IActionResult> DeleteClientNaturalPersonAsync(int id, CancellationToken cancellationToken)
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> DeleteClientAsync(int id, CancellationToken cancellationToken)
     {
-        await _service.DeleteClientNaturalPersonAsync(id, cancellationToken);
-        return Ok();
-    }
-
-    [HttpDelete("companies/{id:int}")]
-    public async Task<IActionResult> DeleteClientCompanyAsync(int id, CancellationToken cancellationToken)
-    {
-        await _service.DeleteClientCompanyAsync(id, cancellationToken);
+        await _service.DeleteClientAsync(id, cancellationToken);
         return Ok();
     }
 
@@ -58,17 +51,17 @@ public class ClientController : ControllerBase
         return Ok();
     }
 
-    [HttpGet("naturalPeople/{id:int}")]
-    public async Task<IActionResult> GetClientNaturalPersonAsync(int id, CancellationToken cancellationToken)
+    [HttpGet("naturalPeople/{id:int}", Name = "GetClientNaturalPerson")]
+    public async Task<IActionResult> GetClientNaturalClientAsync(int id, CancellationToken cancellationToken)
     {
-        var result = await _service.GetClientNaturalPerson(id, cancellationToken);
+        var result = await _service.GetClientNaturalPersonAsync(id, cancellationToken);
         return Ok(result);
     }
 
     [HttpGet("companies/{id:int}")]
     public async Task<IActionResult> GetClientCompanyAsync(int id, CancellationToken cancellationToken)
     {
-        var result = await _service.GetClientCompany(id, cancellationToken);
+        var result = await _service.GetClientCompanyAsync(id, cancellationToken);
         return Ok(result);
     }
 
