@@ -35,10 +35,16 @@ namespace Revenue_Recognition_System.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
@@ -78,6 +84,7 @@ namespace Revenue_Recognition_System.Migrations
                             IdClient = 1,
                             Address = "123 Main St",
                             Email = "info@companyone.com",
+                            IsDeleted = false,
                             PhoneNumber = "123-456-7890",
                             CompanyName = "Company One",
                             KRS = "1234567890"
@@ -87,6 +94,7 @@ namespace Revenue_Recognition_System.Migrations
                             IdClient = 2,
                             Address = "456 Elm St",
                             Email = "info@companytwo.com",
+                            IsDeleted = false,
                             PhoneNumber = "098-765-4321",
                             CompanyName = "Company Two",
                             KRS = "0987654321"
@@ -96,12 +104,6 @@ namespace Revenue_Recognition_System.Migrations
             modelBuilder.Entity("Revenue_Recognition_System.Models.NaturalPerson", b =>
                 {
                     b.HasBaseType("Revenue_Recognition_System.Models.Client");
-
-                    b.Property<DateTimeOffset?>("DeletedAt")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -130,8 +132,8 @@ namespace Revenue_Recognition_System.Migrations
                             IdClient = 3,
                             Address = "123 Main St",
                             Email = "john.doe@example.com",
-                            PhoneNumber = "123-456-7890",
                             IsDeleted = false,
+                            PhoneNumber = "123-456-7890",
                             Name = "John",
                             Pesel = "12345678901",
                             Surname = "Doe"
@@ -141,8 +143,8 @@ namespace Revenue_Recognition_System.Migrations
                             IdClient = 4,
                             Address = "456 Elm St",
                             Email = "jane.smith@example.com",
-                            PhoneNumber = "098-765-4321",
                             IsDeleted = false,
+                            PhoneNumber = "098-765-4321",
                             Name = "Jane",
                             Pesel = "09876543210",
                             Surname = "Smith"

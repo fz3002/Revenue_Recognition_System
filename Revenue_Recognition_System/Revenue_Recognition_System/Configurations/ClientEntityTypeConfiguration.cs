@@ -9,6 +9,7 @@ public class ClientEntityTypeConfiguration : IEntityTypeConfiguration<Client>
     public void Configure(EntityTypeBuilder<Client> builder)
     {
         builder.UseTptMappingStrategy();
+        builder.HasQueryFilter(c => c.IsDeleted == false);
         builder.HasKey(c => c.IdClient);
         builder.Property(c => c.IdClient).ValueGeneratedOnAdd().UseIdentityColumn();
         builder.Property(c => c.Address).IsRequired().HasMaxLength(300);

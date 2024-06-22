@@ -13,26 +13,40 @@ namespace Revenue_Recognition_System.Migrations
         {
             migrationBuilder.AddColumn<DateTimeOffset>(
                 name: "DeletedAt",
-                table: "People",
+                table: "Clients",
                 type: "datetimeoffset",
                 nullable: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "IsDeleted",
-                table: "People",
+                table: "Clients",
                 type: "bit",
                 nullable: false,
                 defaultValue: false);
 
             migrationBuilder.UpdateData(
-                table: "People",
+                table: "Clients",
+                keyColumn: "IdClient",
+                keyValue: 1,
+                columns: new[] { "DeletedAt", "IsDeleted" },
+                values: new object[] { null, false });
+
+            migrationBuilder.UpdateData(
+                table: "Clients",
+                keyColumn: "IdClient",
+                keyValue: 2,
+                columns: new[] { "DeletedAt", "IsDeleted" },
+                values: new object[] { null, false });
+
+            migrationBuilder.UpdateData(
+                table: "Clients",
                 keyColumn: "IdClient",
                 keyValue: 3,
                 columns: new[] { "DeletedAt", "IsDeleted" },
                 values: new object[] { null, false });
 
             migrationBuilder.UpdateData(
-                table: "People",
+                table: "Clients",
                 keyColumn: "IdClient",
                 keyValue: 4,
                 columns: new[] { "DeletedAt", "IsDeleted" },
@@ -44,11 +58,11 @@ namespace Revenue_Recognition_System.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "DeletedAt",
-                table: "People");
+                table: "Clients");
 
             migrationBuilder.DropColumn(
                 name: "IsDeleted",
-                table: "People");
+                table: "Clients");
         }
     }
 }
