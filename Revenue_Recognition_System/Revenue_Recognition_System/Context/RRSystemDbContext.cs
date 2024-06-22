@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Revenue_Recognition_System.Controllers;
 using Revenue_Recognition_System.Models;
 
 namespace Revenue_Recognition_System.Context;
@@ -13,6 +14,7 @@ public partial class RRSystemDbContext : DbContext
     {
     }
 
+    public DbSet<Client> Clients { get; set; }
     public DbSet<Company> Companies { get; set; }
     public DbSet<NaturalPerson> People { get; set; }
 

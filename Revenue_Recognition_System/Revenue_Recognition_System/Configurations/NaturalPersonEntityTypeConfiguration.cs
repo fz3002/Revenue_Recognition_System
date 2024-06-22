@@ -8,17 +8,16 @@ public class NaturalPersonEntityTypeConfiguration : IEntityTypeConfiguration<Nat
 {
     public void Configure(EntityTypeBuilder<NaturalPerson> builder)
     {
-        builder.HasKey(np => np.IdPerson);
+        builder.UseTptMappingStrategy();
+        builder.HasBaseType<Client>();
         builder.Property(np => np.Name).IsRequired().HasMaxLength(100);
         builder.Property(np => np.Surname).IsRequired().HasMaxLength(200);
-        builder.Property(np => np.Address).IsRequired().HasMaxLength(300);
-        builder.Property(np => np.PhoneNumber).IsRequired().HasMaxLength(12);
-        builder.Property(np => np.Email).IsRequired().HasMaxLength(50);
         builder.Property(np => np.Pesel).IsRequired().HasMaxLength(11);
 
         builder.HasData(
             new NaturalPerson("12345678901")
             {
+                IdClient = 3,
                 Name = "John",
                 Surname = "Doe",
                 Address = "123 Main St",
@@ -27,6 +26,7 @@ public class NaturalPersonEntityTypeConfiguration : IEntityTypeConfiguration<Nat
             },
             new NaturalPerson("09876543210")
             {
+                IdClient = 4,
                 Name = "Jane",
                 Surname = "Smith",
                 Address = "456 Elm St",
