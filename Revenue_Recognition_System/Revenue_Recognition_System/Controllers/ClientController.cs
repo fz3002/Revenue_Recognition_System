@@ -20,7 +20,7 @@ public class ClientController : ControllerBase
     public async Task<IActionResult> AddClientNaturalPersonAsync(NaturalPersonDTO personDto, CancellationToken cancellationToken)
     {
         var result = await _service.AddClientNaturalPersonAsync(personDto, cancellationToken);
-        return CreatedAtRoute("GetClientNaturalClient",new {id = result.IdClient}, result);
+         return CreatedAtAction(nameof(GetClientNaturalClientAsync), new { id = result.IdClient }, result);
     }
 
     [HttpPost("companies")]
