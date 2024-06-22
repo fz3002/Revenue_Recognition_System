@@ -20,14 +20,14 @@ public class ClientController : ControllerBase
     public async Task<IActionResult> AddClientNaturalPersonAsync(NaturalPersonDTO personDto, CancellationToken cancellationToken)
     {
         var result = await _service.AddClientNaturalPersonAsync(personDto, cancellationToken);
-         return CreatedAtAction(nameof(GetClientNaturalClientAsync), new { id = result.IdClient }, result);
+         return CreatedAtRoute("GetClientNaturalPerson", new { id = result.IdClient }, result);
     }
 
     [HttpPost("companies")]
     public async Task<IActionResult> AddClientCompanyAsync(CompanyDTO companyDto, CancellationToken cancellationToken)
     {
         var result = await _service.AddClientCompanyAsync(companyDto, cancellationToken);
-        return CreatedAtAction(nameof(AddClientCompanyAsync), new {id = result.IdClient}, result);
+        return CreatedAtAction("GetClientCompany", new {id = result.IdClient}, result);
     }
 
     [HttpDelete("{id:int}")]
@@ -58,7 +58,7 @@ public class ClientController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("companies/{id:int}")]
+    [HttpGet("companies/{id:int}", Name = "GetClientCompany")]
     public async Task<IActionResult> GetClientCompanyAsync(int id, CancellationToken cancellationToken)
     {
         var result = await _service.GetClientCompanyAsync(id, cancellationToken);
