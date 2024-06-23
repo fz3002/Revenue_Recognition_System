@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Revenue_Recognition_System.DTO;
 using Revenue_Recognition_System.Models;
 
 namespace Revenue_Recognition_System.Repositories;
@@ -54,5 +53,22 @@ public class ClientRepository : IClientRepository
     public async Task DeleteClient(NaturalPerson naturalPerson, CancellationToken cancellationToken)
     {
         _unitOfWork.GetDBContext().People.Remove(naturalPerson);
+    }
+
+    public async Task UpdateNaturalPersonAsync(NaturalPerson existingClient, NaturalPerson client, CancellationToken cancellationToken)
+    {
+        existingClient.Name = client.Name;
+        existingClient.Surname = client.Surname;
+        existingClient.PhoneNumber = client.PhoneNumber;
+        existingClient.Address = client.Address;
+        existingClient.Email = client.Email;
+    }
+
+    public async Task UpdateCompanyAsync(Company existingClient, Company client, CancellationToken cancellationToken)
+    {
+        existingClient.CompanyName = client.CompanyName;
+        existingClient.PhoneNumber = client.PhoneNumber;
+        existingClient.Address = client.Address;
+        existingClient.Email = client.Email;
     }
 }

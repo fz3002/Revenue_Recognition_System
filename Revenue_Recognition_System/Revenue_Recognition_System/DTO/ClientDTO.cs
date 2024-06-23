@@ -1,3 +1,5 @@
+using Revenue_Recognition_System.Enums;
+
 namespace Revenue_Recognition_System.DTO;
 
-public record ClientDTO(int IdClient, string Address, string Email, string PhoneNumber);
+public record ClientDTO(string Address, string Email, string PhoneNumber, ClientType Type, TypeSpecificPropertiesDTO Properties);

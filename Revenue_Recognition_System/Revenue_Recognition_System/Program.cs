@@ -1,6 +1,8 @@
 using System.Text.Json.Serialization;
+using JsonSubTypes;
 using Microsoft.EntityFrameworkCore;
 using Revenue_Recognition_System.Context;
+using Revenue_Recognition_System.Enums;
 using Revenue_Recognition_System.Models;
 using Revenue_Recognition_System.Repositories;
 using Revenue_Recognition_System.Services;
@@ -11,7 +13,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers()
-    .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+    .AddJsonOptions(x =>
+    {
+        x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    });
 builder.Services.AddDbContext<RRSystemDbContext>(opt =>
 {
     opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));

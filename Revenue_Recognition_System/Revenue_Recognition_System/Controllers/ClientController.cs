@@ -15,19 +15,12 @@ public class ClientController : ControllerBase
     {
         _service = service;
     }
-    //TODO: FIX ROUT NOT WORKING
-    [HttpPost("naturalPeople")]
-    public async Task<IActionResult> AddClientNaturalPersonAsync(NaturalPersonDTO personDto, CancellationToken cancellationToken)
+    
+    [HttpPost()]
+    public async Task<IActionResult> AddClientAsync(ClientDTO clientDto, CancellationToken cancellationToken)
     {
-        var result = await _service.AddClientNaturalPersonAsync(personDto, cancellationToken);
+        var result = await _service.AddClientAsync(clientDto, cancellationToken);
          return CreatedAtRoute("GetClientNaturalPerson", new { id = result.IdClient }, result);
-    }
-
-    [HttpPost("companies")]
-    public async Task<IActionResult> AddClientCompanyAsync(CompanyDTO companyDto, CancellationToken cancellationToken)
-    {
-        var result = await _service.AddClientCompanyAsync(companyDto, cancellationToken);
-        return CreatedAtAction("GetClientCompany", new {id = result.IdClient}, result);
     }
 
     [HttpDelete("{id:int}")]
@@ -37,32 +30,17 @@ public class ClientController : ControllerBase
         return Ok();
     }
 
-    [HttpPut("naturalPeople/{id:int}")]
-    public async Task<IActionResult> UpdateClientNaturalPersonAsync(int id, NaturalPersonDTO naturalPersonDTO, CancellationToken cancellationToken)
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> UpdateClientAsync(int id, ClientDTO clientDTO, CancellationToken cancellationToken)
     {
-        await _service.UpdateClientNaturalPersonAsync(id, naturalPersonDTO, cancellationToken);
+        await _service.UpdateClientAsync(id, clientDTO, cancellationToken);
         return Ok();
     }
 
-    [HttpPut("companies/{id:int}")]
-    public async Task<IActionResult> UpdateClientCompanyAsync(int id, CompanyDTO companyDto, CancellationToken cancellationToken)
+    [HttpGet("{id:int}", Name = "GetClient")]
+    public async Task<IActionResult> GetClientAsync(int id, CancellationToken cancellationToken)
     {
-        await _service.UpdateClientCompanyAsync(id, companyDto, cancellationToken);
-        return Ok();
-    }
-
-    [HttpGet("naturalPeople/{id:int}", Name = "GetClientNaturalPerson")]
-    public async Task<IActionResult> GetClientNaturalClientAsync(int id, CancellationToken cancellationToken)
-    {
-        var result = await _service.GetClientNaturalPersonAsync(id, cancellationToken);
+        var result = await _service.GetClientAsync(id, cancellationToken);
         return Ok(result);
     }
-
-    [HttpGet("companies/{id:int}", Name = "GetClientCompany")]
-    public async Task<IActionResult> GetClientCompanyAsync(int id, CancellationToken cancellationToken)
-    {
-        var result = await _service.GetClientCompanyAsync(id, cancellationToken);
-        return Ok(result);
-    }
-
 }
