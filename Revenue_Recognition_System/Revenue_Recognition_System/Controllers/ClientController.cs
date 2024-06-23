@@ -20,7 +20,7 @@ public class ClientController : ControllerBase
     public async Task<IActionResult> AddClientAsync(ClientDTO clientDto, CancellationToken cancellationToken)
     {
         var result = await _service.AddClientAsync(clientDto, cancellationToken);
-         return CreatedAtRoute("GetClientNaturalPerson", new { id = result.IdClient }, result);
+         return CreatedAtRoute("GetClient", new { id = result.IdClient }, result);
     }
 
     [HttpDelete("{id:int}")]
