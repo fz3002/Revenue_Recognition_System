@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Revenue_Recognition_System.Context;
 
@@ -11,9 +12,11 @@ using Revenue_Recognition_System.Context;
 namespace Revenue_Recognition_System.Migrations
 {
     [DbContext(typeof(RRSystemDbContext))]
-    partial class RRSystemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240624160712_AddContractTable")]
+    partial class AddContractTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -227,35 +230,6 @@ namespace Revenue_Recognition_System.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Revenue_Recognition_System.Models.Payment", b =>
-                {
-                    b.Property<int>("IdPayment")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdPayment"));
-
-                    b.Property<DateOnly>("Date")
-                        .HasColumnType("date");
-
-                    b.Property<int>("IdClient")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdContract")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Value")
-                        .HasColumnType("money");
-
-                    b.HasKey("IdPayment");
-
-                    b.HasIndex("IdClient");
-
-                    b.HasIndex("IdContract");
-
-                    b.ToTable("Payments");
-                });
-
             modelBuilder.Entity("Revenue_Recognition_System.Models.Software", b =>
                 {
                     b.Property<int>("IdSoftware")
@@ -452,25 +426,6 @@ namespace Revenue_Recognition_System.Migrations
                     b.Navigation("Offer");
                 });
 
-            modelBuilder.Entity("Revenue_Recognition_System.Models.Payment", b =>
-                {
-                    b.HasOne("Revenue_Recognition_System.Models.Client", "Client")
-                        .WithMany("Payments")
-                        .HasForeignKey("IdClient")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Revenue_Recognition_System.Models.Contract", "Contract")
-                        .WithMany("Payments")
-                        .HasForeignKey("IdContract")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Client");
-
-                    b.Navigation("Contract");
-                });
-
             modelBuilder.Entity("Revenue_Recognition_System.Models.Software", b =>
                 {
                     b.HasOne("Revenue_Recognition_System.Models.Category", "Category")
@@ -508,13 +463,6 @@ namespace Revenue_Recognition_System.Migrations
             modelBuilder.Entity("Revenue_Recognition_System.Models.Client", b =>
                 {
                     b.Navigation("Contracts");
-
-                    b.Navigation("Payments");
-                });
-
-            modelBuilder.Entity("Revenue_Recognition_System.Models.Contract", b =>
-                {
-                    b.Navigation("Payments");
                 });
 
             modelBuilder.Entity("Revenue_Recognition_System.Models.Discount", b =>

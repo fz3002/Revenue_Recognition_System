@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Revenue_Recognition_System.Controllers;
 using Revenue_Recognition_System.Interceptors;
 using Revenue_Recognition_System.Models;
 
@@ -22,6 +21,8 @@ public partial class RRSystemDbContext : DbContext
     public DbSet<Category> Categories { get; set; }
     public DbSet<Discount> Discounts { get; set; }
     public DbSet<DiscountType> DiscountTypes { get; set; }
+    public DbSet<Contract> Contracts { get; set; }
+    public DbSet<Payment> Payments { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
         optionsBuilder.AddInterceptors(new SoftDeleteInterceptor());

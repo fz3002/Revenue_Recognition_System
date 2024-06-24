@@ -9,4 +9,6 @@ public class Software
     public decimal Price { get; set; }
     public int IdCategory { get; set; }
     public Category Category { get; set; }
+
+    public ICollection<Contract> Contracts { get; set; }
 }

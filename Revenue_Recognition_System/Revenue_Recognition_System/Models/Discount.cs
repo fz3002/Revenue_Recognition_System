@@ -9,4 +9,6 @@ public class Discount
     public Decimal Value { get; set; }
     public DateOnly DateFrom { get; set; }
     public DateOnly DateTo { get; set; }
+
+    public ICollection<Contract> Contracts { get; set; }
 }
