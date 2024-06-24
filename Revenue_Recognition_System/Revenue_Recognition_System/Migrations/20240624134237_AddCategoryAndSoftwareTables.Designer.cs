@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Revenue_Recognition_System.Context;
 
@@ -11,9 +12,11 @@ using Revenue_Recognition_System.Context;
 namespace Revenue_Recognition_System.Migrations
 {
     [DbContext(typeof(RRSystemDbContext))]
-    partial class RRSystemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240624134237_AddCategoryAndSoftwareTables")]
+    partial class AddCategoryAndSoftwareTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,97 +96,6 @@ namespace Revenue_Recognition_System.Migrations
                     b.UseTptMappingStrategy();
                 });
 
-            modelBuilder.Entity("Revenue_Recognition_System.Models.Discount", b =>
-                {
-                    b.Property<int>("IdDiscount")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdDiscount"));
-
-                    b.Property<DateOnly>("DateFrom")
-                        .HasColumnType("date");
-
-                    b.Property<DateOnly>("DateTo")
-                        .HasColumnType("date");
-
-                    b.Property<int>("IdDiscountType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<decimal>("Value")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("IdDiscount");
-
-                    b.HasIndex("IdDiscountType");
-
-                    b.ToTable("Discounts");
-
-                    b.HasData(
-                        new
-                        {
-                            IdDiscount = 1,
-                            DateFrom = new DateOnly(2024, 6, 1),
-                            DateTo = new DateOnly(2024, 6, 30),
-                            IdDiscountType = 1,
-                            Name = "Summer Sale",
-                            Value = 0.5m
-                        },
-                        new
-                        {
-                            IdDiscount = 2,
-                            DateFrom = new DateOnly(2024, 11, 25),
-                            DateTo = new DateOnly(2024, 11, 30),
-                            IdDiscountType = 1,
-                            Name = "Black Friday",
-                            Value = 0.7m
-                        },
-                        new
-                        {
-                            IdDiscount = 3,
-                            DateFrom = new DateOnly(2024, 12, 20),
-                            DateTo = new DateOnly(2024, 12, 25),
-                            IdDiscountType = 1,
-                            Name = "Christmas Sale",
-                            Value = 0.3m
-                        });
-                });
-
-            modelBuilder.Entity("Revenue_Recognition_System.Models.DiscountType", b =>
-                {
-                    b.Property<int>("IdDiscountType")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdDiscountType"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("IdDiscountType");
-
-                    b.ToTable("DiscountTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            IdDiscountType = 1,
-                            Name = "Discount for one time purchase"
-                        },
-                        new
-                        {
-                            IdDiscountType = 2,
-                            Name = "Discount for subscription"
-                        });
-                });
-
             modelBuilder.Entity("Revenue_Recognition_System.Models.Software", b =>
                 {
                     b.Property<int>("IdSoftware")
@@ -205,9 +117,6 @@ namespace Revenue_Recognition_System.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("money");
-
                     b.Property<string>("Version")
                         .IsRequired()
                         .HasMaxLength(10)
@@ -226,7 +135,6 @@ namespace Revenue_Recognition_System.Migrations
                             Description = "IDE for development",
                             IdCategory = 2,
                             Name = "Visual Studio",
-                            Price = 200.22m,
                             Version = "2022"
                         },
                         new
@@ -235,7 +143,6 @@ namespace Revenue_Recognition_System.Migrations
                             Description = "Text editor",
                             IdCategory = 2,
                             Name = "Notepad++",
-                            Price = 1000.99m,
                             Version = "8.1.9"
                         },
                         new
@@ -244,7 +151,6 @@ namespace Revenue_Recognition_System.Migrations
                             Description = "Music streaming",
                             IdCategory = 3,
                             Name = "Spotify",
-                            Price = 720.59m,
                             Version = "1.1.72"
                         });
                 });
@@ -342,17 +248,6 @@ namespace Revenue_Recognition_System.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Revenue_Recognition_System.Models.Discount", b =>
-                {
-                    b.HasOne("Revenue_Recognition_System.Models.DiscountType", "Offer")
-                        .WithMany("Discounts")
-                        .HasForeignKey("IdDiscountType")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Offer");
-                });
-
             modelBuilder.Entity("Revenue_Recognition_System.Models.Software", b =>
                 {
                     b.HasOne("Revenue_Recognition_System.Models.Category", "Category")
@@ -385,11 +280,6 @@ namespace Revenue_Recognition_System.Migrations
             modelBuilder.Entity("Revenue_Recognition_System.Models.Category", b =>
                 {
                     b.Navigation("Softwares");
-                });
-
-            modelBuilder.Entity("Revenue_Recognition_System.Models.DiscountType", b =>
-                {
-                    b.Navigation("Discounts");
                 });
 #pragma warning restore 612, 618
         }

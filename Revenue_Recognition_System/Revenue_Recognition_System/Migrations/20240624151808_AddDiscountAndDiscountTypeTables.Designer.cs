@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Revenue_Recognition_System.Context;
 
@@ -11,9 +12,11 @@ using Revenue_Recognition_System.Context;
 namespace Revenue_Recognition_System.Migrations
 {
     [DbContext(typeof(RRSystemDbContext))]
-    partial class RRSystemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240624151808_AddDiscountAndDiscountTypeTables")]
+    partial class AddDiscountAndDiscountTypeTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -132,7 +135,7 @@ namespace Revenue_Recognition_System.Migrations
                             DateTo = new DateOnly(2024, 6, 30),
                             IdDiscountType = 1,
                             Name = "Summer Sale",
-                            Value = 0.5m
+                            Value = 50.0m
                         },
                         new
                         {
@@ -141,7 +144,7 @@ namespace Revenue_Recognition_System.Migrations
                             DateTo = new DateOnly(2024, 11, 30),
                             IdDiscountType = 1,
                             Name = "Black Friday",
-                            Value = 0.7m
+                            Value = 70.0m
                         },
                         new
                         {
@@ -150,7 +153,7 @@ namespace Revenue_Recognition_System.Migrations
                             DateTo = new DateOnly(2024, 12, 25),
                             IdDiscountType = 1,
                             Name = "Christmas Sale",
-                            Value = 0.3m
+                            Value = 30.0m
                         });
                 });
 
