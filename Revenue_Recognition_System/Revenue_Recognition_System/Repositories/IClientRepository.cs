@@ -14,4 +14,5 @@ public interface IClientRepository
     Task DeleteClient(NaturalPerson naturalPerson, CancellationToken cancellationToken);
     Task UpdateNaturalPersonAsync(NaturalPerson existingClient, NaturalPerson client, CancellationToken cancellationToken);
     Task UpdateCompanyAsync(Company existingClient, Company client, CancellationToken cancellationToken);
+    Task<Client?> GetClientAsync(int contractIdClient, CancellationToken cancellationToken);
 }

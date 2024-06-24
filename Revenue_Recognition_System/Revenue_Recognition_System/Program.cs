@@ -25,6 +25,9 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IContractRepository, ContractRepository>();
+builder.Services.AddScoped<ISoftwareRepository, SoftwareRepository>();
+builder.Services.AddScoped<IDiscountRepository, DiscountRepository>();
 
 var app = builder.Build();
 

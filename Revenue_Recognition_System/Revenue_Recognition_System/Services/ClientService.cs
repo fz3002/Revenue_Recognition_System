@@ -173,7 +173,7 @@ public class ClientService : IClientService
         return null;
     }
 
-    private void EnsureClientExists(Client? client, int id)
+    private static void EnsureClientExists(Client? client, int id)
     {
         if (client == null)
         {
@@ -181,7 +181,7 @@ public class ClientService : IClientService
         }
     }
 
-    private void EnsureClientExists(Client? naturalPerson, Client? company, int id)
+    private static void EnsureClientExists(Client? naturalPerson, Client? company, int id)
     {
         if (naturalPerson == null && company == null)
         {
@@ -189,7 +189,7 @@ public class ClientService : IClientService
         }
     }
 
-    private void EnsureClientNotInDatabase(Client? client)
+    private static void EnsureClientNotInDatabase(Client? client)
     {
         if (client != null)
         {
@@ -197,7 +197,7 @@ public class ClientService : IClientService
         }
     }
 
-    private void EnsureNotACompany(Client? client)
+    private static void EnsureNotACompany(Client? client)
     {
         if (client != null)
         {
@@ -205,19 +205,14 @@ public class ClientService : IClientService
         }
     }
 
-    private void CheckClientDtoFormating(ClientDTO clientDto)
+    private static void CheckClientDtoFormating(ClientDTO clientDto)
     {
-        if (clientDto.Type == ClientType.NaturalPerson)
-        {
-
-            if (clientDto.Properties.Pesel == null || clientDto.Properties.Name == null ||
-                clientDto.Properties.Surname == null)
-                throw new DomainException("Empty properties values that should be given");
-        }
-        else if (clientDto.Type == ClientType.Company)
-        {
-            if (clientDto.Properties.CompanyName == null || clientDto.Properties.Krs == null)
-                throw new DomainException("Empty properties values that should be given");
-        }
+        if (clientDto.Type == ClientType.NaturalPerson &&
+            (clientDto.Properties.Pesel == null || clientDto.Properties.Name == null ||
+             clientDto.Properties.Surname == null))
+            throw new DomainException("Empty properties values that should be given");
+        if (clientDto.Type == ClientType.Company &&
+            (clientDto.Properties.CompanyName == null || clientDto.Properties.Krs == null))
+            throw new DomainException("Empty properties values that should be given");
     }
 }

@@ -71,4 +71,11 @@ public class ClientRepository : IClientRepository
         existingClient.Address = client.Address;
         existingClient.Email = client.Email;
     }
+
+    public async Task<Client?> GetClientAsync(int contractIdClient, CancellationToken cancellationToken)
+    {
+        return await _unitOfWork.GetDBContext().Clients
+            .Where(c => c.IdClient == contractIdClient)
+            .FirstOrDefaultAsync(cancellationToken);
+    }
 }

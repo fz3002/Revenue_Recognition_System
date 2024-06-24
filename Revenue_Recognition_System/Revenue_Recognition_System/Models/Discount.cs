@@ -6,7 +6,7 @@ public class Discount
     public string Name { get; set; }
     public int IdDiscountType { get; set; }
     public DiscountType Offer { get; set; }
-    public Decimal Value { get; set; }
+    public decimal Value { get; set; }
     public DateOnly DateFrom { get; set; }
     public DateOnly DateTo { get; set; }
 

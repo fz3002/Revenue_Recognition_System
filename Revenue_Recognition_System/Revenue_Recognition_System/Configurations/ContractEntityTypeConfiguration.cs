@@ -14,7 +14,7 @@ public class ContractEntityTypeConfiguration : IEntityTypeConfiguration<Contract
             .UseIdentityColumn();
         builder.Property(c => c.StartDate).IsRequired();
         builder.Property(c => c.EndDate).IsRequired();
-        builder.Property(c => c.Paid).IsRequired();
+        builder.Property(c => c.Paid).IsRequired().HasColumnType("money");
         builder.Property(c => c.YearsOfSupport).IsRequired();
         builder.Property(c => c.Value).IsRequired().HasColumnType("money");
         builder.HasOne(c => c.Discount)
