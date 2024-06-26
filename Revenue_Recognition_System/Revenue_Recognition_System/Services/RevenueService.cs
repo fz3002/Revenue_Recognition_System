@@ -14,4 +14,9 @@ public class RevenueService : IRevenueService
     {
         return await _contractRepository.GetRevenueAsync(cancellationToken);
     }
+
+    public async Task<decimal> GetExpectedRevenueAsync(CancellationToken cancellationToken)
+    {
+        return await _contractRepository.GetExpectedRevenue(cancellationToken);
+    }
 }

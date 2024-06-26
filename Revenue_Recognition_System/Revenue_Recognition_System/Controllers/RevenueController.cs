@@ -21,4 +21,11 @@ public class RevenueController : ControllerBase
         var result = await _service.GetRevenueAsync(cancellationToken);
         return Ok(result);
     }
+
+    [HttpGet("expected")]
+    public async Task<IActionResult> GetExpectedRevenue(CancellationToken cancellationToken)
+    {
+        var result = await _service.GetExpectedRevenueAsync(cancellationToken);
+        return Ok(result);
+    }
 }

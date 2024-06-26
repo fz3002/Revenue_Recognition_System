@@ -14,4 +14,5 @@ public interface IContractRepository
     Task<int> GetLastPaymentIdAsync(CancellationToken cancellationToken);
     Task<Payment?> GetPaymentAsync(int id, CancellationToken cancellationToken);
     Task<decimal> GetRevenueAsync(CancellationToken cancellationToken);
+    Task<decimal> GetExpectedRevenue(CancellationToken cancellationToken);
 }

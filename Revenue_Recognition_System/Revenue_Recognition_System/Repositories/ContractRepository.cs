@@ -85,4 +85,10 @@ public class ContractRepository : IContractRepository
             .Where(c => c.Paid == c.Value)
             .SumAsync(c => c.Value, cancellationToken);
     }
+
+    public async Task<decimal> GetExpectedRevenue(CancellationToken cancellationToken)
+    {
+        return await _unitOfWork.GetDBContext().Contracts
+            .SumAsync(c => c.Value, cancellationToken);
+    }
 }
