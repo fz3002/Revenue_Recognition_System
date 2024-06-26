@@ -13,4 +13,5 @@ public interface IContractRepository
     void UpdateContractPaid(Contract contract, decimal paymentValue);
     Task<int> GetLastPaymentIdAsync(CancellationToken cancellationToken);
     Task<Payment?> GetPaymentAsync(int id, CancellationToken cancellationToken);
+    Task<decimal> GetRevenueAsync(CancellationToken cancellationToken);
 }

@@ -78,4 +78,11 @@ public class ContractRepository : IContractRepository
             .Where(p => p.IdPayment == id)
             .FirstOrDefaultAsync(cancellationToken);
     }
+
+    public async Task<decimal> GetRevenueAsync(CancellationToken cancellationToken)
+    {
+        return await _unitOfWork.GetDBContext().Contracts
+            .Where(c => c.Paid == c.Value)
+            .SumAsync(c => c.Value, cancellationToken);
+    }
 }
