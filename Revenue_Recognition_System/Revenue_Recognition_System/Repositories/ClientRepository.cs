@@ -75,6 +75,8 @@ public class ClientRepository : IClientRepository
     public async Task<Client?> GetClientAsync(int contractIdClient, CancellationToken cancellationToken)
     {
         return await _unitOfWork.GetDBContext().Clients
+            .Include(c => c.Contracts)
+            .Include(c => c.Payments)
             .Where(c => c.IdClient == contractIdClient)
             .FirstOrDefaultAsync(cancellationToken);
     }

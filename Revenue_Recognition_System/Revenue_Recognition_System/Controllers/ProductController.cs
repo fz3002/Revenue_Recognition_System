@@ -29,4 +29,18 @@ public class ProductController : ControllerBase
         var result = await _service.GetContractAsync(id, cancellationToken);
         return Ok(result);
     }
+
+    [HttpPost]
+    public async Task<IActionResult> PayForContract([FromBody] PaymentDTO payment, CancellationToken cancellationToken)
+    {
+        var result = await _service.PayForContract(payment, cancellationToken);
+        return CreatedAtRoute("GetPayment", new { id = result.IdPayment }, result);
+    }
+
+    [HttpGet("payments/{id:int}", Name = "GetPayment")]
+    public async Task<IActionResult> GetPayment(int id, CancellationToken cancellationToken)
+    {
+        var result = await _service.GetPayment(id, cancellationToken);
+        return Ok(result);
+    }
 }

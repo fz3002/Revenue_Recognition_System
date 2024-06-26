@@ -22,9 +22,9 @@ public class Contract
         
     }
 
-    public Contract(DateOnly startDate, DateOnly endDate, int? idDiscount, int yearsOfSupport, int idSoftware, int idClient, decimal value)
+    public Contract(DateOnly endDate, int? idDiscount, int yearsOfSupport, int idSoftware, int idClient, decimal value)
     {
-        StartDate = startDate;
+        StartDate = DateOnly.FromDateTime(DateTime.Now);
         EndDate = endDate;
         IdDiscount = idDiscount;
         YearsOfSupport = yearsOfSupport;

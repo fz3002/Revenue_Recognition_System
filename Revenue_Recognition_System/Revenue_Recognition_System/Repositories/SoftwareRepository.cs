@@ -14,7 +14,10 @@ public class SoftwareRepository : ISoftwareRepository
 
     public async Task<Software?> GetSoftwareAsync(int id, CancellationToken cancellationToken)
     {
-        return await _unitOfWork.GetDBContext().Softwares.Where(software => software.IdSoftware == id)
+        return await _unitOfWork.GetDBContext().Softwares
+            .Include(s => s.Category)
+            .Include(s => s.Contracts)
+            .Where(software => software.IdSoftware == id)
             .FirstOrDefaultAsync(cancellationToken);
     }
 }

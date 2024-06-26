@@ -12,5 +12,6 @@ public record ContractViewDTO(
     SoftwareDTO Software,
     int IdClient,
     ClientDTO Client,
-    Decimal Cost
+    decimal Cost,
+    decimal Paid
     );

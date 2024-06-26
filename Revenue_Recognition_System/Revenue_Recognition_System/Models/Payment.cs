@@ -9,4 +9,12 @@ public class Payment
     public Contract Contract { get; }
     public int IdClient { get; }
     public Client Client { get; }
+
+    public Payment(decimal value, int idContract, int idClient)
+    {
+        Value = value;
+        Date = DateOnly.FromDateTime(DateTime.Now);
+        IdContract = idContract;
+        IdClient = idClient;
+    }
 }
