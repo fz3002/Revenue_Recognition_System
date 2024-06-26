@@ -16,9 +16,9 @@ public class RevenueController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetRevenueAsync(CancellationToken cancellationToken)
+    public async Task<IActionResult> GetRevenueAsync(CancellationToken cancellationToken, [FromQuery] int idSoftware = -1, [FromQuery] string? currency = null)
     {
-        var result = await _service.GetRevenueAsync(cancellationToken);
+        var result = await _service.GetRevenueAsync(idSoftware, currency, cancellationToken);
         return Ok(result);
     }
 
