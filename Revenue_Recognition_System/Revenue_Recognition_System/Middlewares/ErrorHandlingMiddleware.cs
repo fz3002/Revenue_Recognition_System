@@ -1,5 +1,6 @@
 using System.Net;
 using Microsoft.Data.SqlClient;
+using Microsoft.IdentityModel.Tokens;
 using Revenue_Recognition_System.Exceptions;
 
 namespace Revenue_Recognition_System.Middlewares;
@@ -33,12 +34,19 @@ public class ErrorHandlingMiddleware
 
             await HandleSqlExceptionAsync(context, ex);
         }
+        catch (SecurityTokenException ex)
+        {
+            _logger.LogError(ex, "An unhandled Security Token exception occurred");
+
+            await HandleSecurityTokenExceptionAsync(context, ex);
+        }
         catch (Exception ex)
         {
             _logger.LogError(ex, "An unhandled Exception occurred");
 
             await HandleExceptionAsync(context, ex);
         }
+
     }
 
     private Task HandleDomainExceptionAsync(HttpContext context, Exception ex)
@@ -87,6 +95,24 @@ public class ErrorHandlingMiddleware
             error = new
             {
                 message = "Error occured while processing request",
+                detail = ex.Message
+            }
+        };
+
+        var jsonResponse = System.Text.Json.JsonSerializer.Serialize(response);
+        return context.Response.WriteAsync(jsonResponse);
+    }
+
+    private Task HandleSecurityTokenExceptionAsync(HttpContext context, Exception ex)
+    {
+        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+        context.Response.ContentType = "application/json";
+
+        var response = new
+        {
+            error = new
+            {
+                message = "Security Token validation error occured",
                 detail = ex.Message
             }
         };

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Revenue_Recognition_System.DTO;
 using Revenue_Recognition_System.Services;
@@ -15,6 +16,7 @@ public class AuthorizationController : ControllerBase
         _service = service;
     }
 
+    [AllowAnonymous]
     [HttpPost]
     public async Task<IActionResult> RegisterUserAsync(UserDto user, CancellationToken cancellationToken)
     {
@@ -22,9 +24,26 @@ public class AuthorizationController : ControllerBase
         return Ok();
     }
 
+    [AllowAnonymous]
     [HttpGet]
     public async Task<IActionResult> LogInAsync(UserDto user, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var result = await _service.LogInAsync(user, cancellationToken);
+            return Ok(result);
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            return Unauthorized();
+        }
+    }
+
+    [Authorize(AuthenticationSchemes = "IgnoreTokenExpirationScheme")]
+    [HttpPost("refresh")]
+    public async Task<IActionResult> RefreshAsync(RefreshTokenDTO refreshTokenDto, CancellationToken cancellationToken)
+    {
+        var result = await _service.RefreshToken(refreshTokenDto, cancellationToken);
+        return Ok(result);
     }
 }

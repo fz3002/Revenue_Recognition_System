@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Revenue_Recognition_System.Services;
 
@@ -15,6 +16,7 @@ public class RevenueController : ControllerBase
         _service = service;
     }
 
+    [Authorize]
     [HttpGet]
     public async Task<IActionResult> GetRevenueAsync(CancellationToken cancellationToken, [FromQuery] int idSoftware = -1, [FromQuery] string? currency = null)
     {
@@ -22,6 +24,7 @@ public class RevenueController : ControllerBase
         return Ok(result);
     }
 
+    [Authorize]
     [HttpGet("expected")]
     public async Task<IActionResult> GetExpectedRevenue(CancellationToken cancellationToken)
     {
