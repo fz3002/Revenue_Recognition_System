@@ -37,7 +37,7 @@ public static class AuthorizationHelpers
                 password: password,
                 salt: saltBytes,
                 prf: KeyDerivationPrf.HMACSHA1,
-                iterationCount: 10000,
+                iterationCount: 12000,
                 numBytesRequested: 256 / 8));
 
             return currentHashedPassword;

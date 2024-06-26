@@ -48,7 +48,7 @@ public class SecurityService : ISecurityService
     {
         var userToLogIn = await _userRepository.GetUserAsync(user.Login, cancellationToken);
         EnsureUserExists(userToLogIn);
-        var passwordHash = user.Password;
+        var passwordHash = userToLogIn.Password;
         var givenHashPass = AuthorizationHelpers.GetHashedPasswordWithSalt(user.Password, userToLogIn.Salt);
 
         if (passwordHash != givenHashPass)

@@ -17,7 +17,7 @@ public class AuthorizationController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpPost]
+    [HttpPost("signin")]
     public async Task<IActionResult> RegisterUserAsync(UserDto user, CancellationToken cancellationToken)
     {
         await _service.RegisterUser(user, cancellationToken);
@@ -25,7 +25,7 @@ public class AuthorizationController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpGet]
+    [HttpPost]
     public async Task<IActionResult> LogInAsync(UserDto user, CancellationToken cancellationToken)
     {
         try
