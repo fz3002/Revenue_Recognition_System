@@ -30,7 +30,7 @@ public class ProductController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPost]
+    [HttpPost("payments")]
     public async Task<IActionResult> PayForContract([FromBody] PaymentDTO payment, CancellationToken cancellationToken)
     {
         var result = await _service.PayForContract(payment, cancellationToken);

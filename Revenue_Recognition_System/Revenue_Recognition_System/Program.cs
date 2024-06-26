@@ -1,10 +1,8 @@
 using System.Text.Json.Serialization;
-using JsonSubTypes;
 using Microsoft.EntityFrameworkCore;
 using Revenue_Recognition_System.AppSettingsConfigurations;
 using Revenue_Recognition_System.Context;
-using Revenue_Recognition_System.Enums;
-using Revenue_Recognition_System.Models;
+using Revenue_Recognition_System.Middlewares;
 using Revenue_Recognition_System.Repositories;
 using Revenue_Recognition_System.Services;
 
@@ -42,7 +40,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();
