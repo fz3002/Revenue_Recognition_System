@@ -5,7 +5,7 @@ namespace Revenue_Recognition_System.Repositories;
 
 public class SoftwareRepository : ISoftwareRepository
 {
-    private IUnitOfWork _unitOfWork;
+    private readonly IUnitOfWork _unitOfWork;
 
     public SoftwareRepository(IUnitOfWork unitOfWork)
     {

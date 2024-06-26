@@ -23,6 +23,7 @@ public partial class RRSystemDbContext : DbContext
     public DbSet<DiscountType> DiscountTypes { get; set; }
     public DbSet<Contract> Contracts { get; set; }
     public DbSet<Payment> Payments { get; set; }
+    public DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
         optionsBuilder.AddInterceptors(new SoftDeleteInterceptor());
