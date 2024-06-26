@@ -1,4 +1,6 @@
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
+using Revenue_Recognition_System.AppSettingsConfigurations;
 using Revenue_Recognition_System.Exceptions;
 using Revenue_Recognition_System.Repositories;
 
@@ -7,13 +9,14 @@ namespace Revenue_Recognition_System.Services;
 public class RevenueService : IRevenueService
 {
     private const string BaseCurrencyCode = "PLN";
-    private const string ApiKey = "4c7dba81cebfaffc60f90ac1a754fe29";
     private readonly IContractRepository _contractRepository;
-    private static HttpClient client = new HttpClient();
+    private readonly ApiSettings _apiSettings;
+    private static readonly HttpClient Client = new HttpClient();
 
-    public RevenueService(IContractRepository contractRepository)
+    public RevenueService(IContractRepository contractRepository,IOptions<ApiSettings> apiSettings)
     {
         _contractRepository = contractRepository;
+        _apiSettings = apiSettings.Value;
     }
     public async Task<decimal> GetRevenueAsync(int idSoftware, string? currency, CancellationToken cancellationToken)
     {
@@ -36,12 +39,12 @@ public class RevenueService : IRevenueService
         return await _contractRepository.GetExpectedRevenue(cancellationToken);
     }
 
-    private static async Task<decimal> ConvertToCurrency(string targetCurrency, decimal amount)
+    private async Task<decimal> ConvertToCurrency(string targetCurrency, decimal amount)
     {
         var url =
-            $"https://api.exchangerate.host/convert?access_key={ApiKey}&from={BaseCurrencyCode}&to={targetCurrency}&amount={amount}";
+            $"https://api.exchangerate.host/convert?access_key={_apiSettings.ExchangeRateApiKey}&from={BaseCurrencyCode}&to={targetCurrency}&amount={amount}";
 
-        var apiResponse = await client.GetAsync(url);
+        var apiResponse = await Client.GetAsync(url);
 
         var responseBody = await apiResponse.Content.ReadAsStringAsync();
 

@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 using JsonSubTypes;
 using Microsoft.EntityFrameworkCore;
+using Revenue_Recognition_System.AppSettingsConfigurations;
 using Revenue_Recognition_System.Context;
 using Revenue_Recognition_System.Enums;
 using Revenue_Recognition_System.Models;
@@ -12,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("ApiSettings"));
 builder.Services.AddControllers()
     .AddJsonOptions(x =>
     {
