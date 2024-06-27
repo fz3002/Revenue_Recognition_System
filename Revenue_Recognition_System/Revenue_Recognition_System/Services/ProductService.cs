@@ -89,7 +89,7 @@ public class ProductService : IProductService
         var discountDTO = discountReference != null
             ? new DiscountDTO(discountReference.Name,
                 discountReference.Offer.Name,
-                contract.Discount.Value, contract.Discount.DateFrom, contract.Discount.DateTo)
+                discountReference.Value, discountReference.DateFrom, discountReference.DateTo)
             : null;
         
         return new ContractViewDTO
