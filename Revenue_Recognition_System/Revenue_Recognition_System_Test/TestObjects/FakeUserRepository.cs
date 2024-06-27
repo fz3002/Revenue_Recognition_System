@@ -46,7 +46,8 @@ public class FakeUserRepository : IUserRepository
                 Salt = hashedPasswordAndSalt2.Item2,
                 Role = Role.User,
                 RefreshToken = AuthorizationHelpers.GenerateRefreshToken(),
-                RefreshTokenExp = DateTime.Now.AddDays(2)
+                RefreshTokenExp = DateTime.MinValue
+
             }
         };
     }

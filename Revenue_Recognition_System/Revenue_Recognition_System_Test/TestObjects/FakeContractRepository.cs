@@ -161,7 +161,7 @@ public class FakeContractRepository : IContractRepository
             }
         };
 
-        _contracts.ElementAt(0).Paid = _payments.ElementAt(0).Value;
+        _contracts.ElementAt(0).Paid = 15000m;
         _contracts.ElementAt(0).Payments = new List<Payment> { _payments.ElementAt(0) };
 
         _contracts.ElementAt(1).Paid = _payments.ElementAt(1).Value;
@@ -177,6 +177,12 @@ public class FakeContractRepository : IContractRepository
         softwares[1].Contracts.Add(_contracts.ElementAt(1));
         softwares[2].Contracts.Add(_contracts.ElementAt(2));
 
+        _contracts.ElementAt(0).Software = softwares[0];
+        _contracts.ElementAt(0).Client = companies[0];
+        _contracts.ElementAt(1).Software = softwares[0];
+        _contracts.ElementAt(1).Client = companies[1];
+        _contracts.ElementAt(2).Software = softwares[0];
+        _contracts.ElementAt(2).Client = naturalPersons[1];
         _contracts.ElementAt(3).Software = softwares[1];
         _contracts.ElementAt(3).Client = naturalPersons[1];
 

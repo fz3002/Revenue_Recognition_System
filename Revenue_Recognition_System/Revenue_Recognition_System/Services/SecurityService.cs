@@ -24,7 +24,7 @@ public class SecurityService : ISecurityService
         _userRepository = userRepository;
     }
 
-    public async Task RegisterUser(UserDto user, CancellationToken cancellationToken)
+    public async Task RegisterUserAsync(UserDto user, CancellationToken cancellationToken)
     {
         var controlUser = await _userRepository.GetUserAsync(user.Login, cancellationToken);
         EnsureUserDoesntExist(controlUser);
@@ -65,7 +65,7 @@ public class SecurityService : ISecurityService
     }
 
 
-    public async Task<TokenDTO> RefreshToken(RefreshTokenDTO refreshTokenDto, CancellationToken cancellationToken)
+    public async Task<TokenDTO> RefreshTokenAsync(RefreshTokenDTO refreshTokenDto, CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetUserByRefreshTokenAsync(refreshTokenDto.RefreshToken, cancellationToken);
         EnsureRefreshTokenIntegrity(user);

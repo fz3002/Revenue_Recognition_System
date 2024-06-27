@@ -20,7 +20,7 @@ public class AuthorizationController : ControllerBase
     [HttpPost("signin")]
     public async Task<IActionResult> RegisterUserAsync(UserDto user, CancellationToken cancellationToken)
     {
-        await _service.RegisterUser(user, cancellationToken);
+        await _service.RegisterUserAsync(user, cancellationToken);
         return Ok();
     }
 
@@ -43,7 +43,7 @@ public class AuthorizationController : ControllerBase
     [HttpPost("refresh")]
     public async Task<IActionResult> RefreshAsync(RefreshTokenDTO refreshTokenDto, CancellationToken cancellationToken)
     {
-        var result = await _service.RefreshToken(refreshTokenDto, cancellationToken);
+        var result = await _service.RefreshTokenAsync(refreshTokenDto, cancellationToken);
         return Ok(result);
     }
 }

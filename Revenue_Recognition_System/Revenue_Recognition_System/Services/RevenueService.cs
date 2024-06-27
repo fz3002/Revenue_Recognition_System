@@ -16,15 +16,15 @@ public class RevenueService : IRevenueService
         _contractRepository = contractRepository;
         _configuration = configuration;
     }
+
     public async Task<decimal> GetRevenueAsync(int idSoftware, string? currency, CancellationToken cancellationToken)
     {
         var result = await _contractRepository.GetRevenueAsync(cancellationToken);
-        if (result <= 0) return 0m;
         if (idSoftware > 0)
         {
             result =  await _contractRepository.GetRevenueAsync(idSoftware, cancellationToken);
         }
-
+        if (result <= 0) return 0m;
         if (currency != null)
         {
             return await ConvertToCurrency(currency, result);

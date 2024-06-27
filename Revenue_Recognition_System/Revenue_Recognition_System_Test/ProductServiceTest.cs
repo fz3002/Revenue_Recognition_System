@@ -151,7 +151,7 @@ public class ProductServiceTest
     public async Task PayForContractAsync_PaymentDataPassesValidation_ShouldReturnPaymentViewDTO()
     {
         //Arrange
-        var payment = new PaymentDTO(200, 1, 1);
+        var payment = new PaymentDTO(200, 2, 2);
 
         //Assert and Act
         await Should.NotThrowAsync(_service.PayForContractAsync(payment, CancellationToken.None));
