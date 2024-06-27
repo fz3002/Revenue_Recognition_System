@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Revenue_Recognition_System.Configurations;
 using Revenue_Recognition_System.Interceptors;
 using Revenue_Recognition_System.Models;
 
@@ -6,12 +7,16 @@ namespace Revenue_Recognition_System.Context;
 
 public partial class RRSystemDbContext : DbContext
 {
-    public RRSystemDbContext()
+    private readonly IConfiguration _configuration;
+
+    public RRSystemDbContext(IConfiguration configuration)
     {
+        _configuration = configuration;
     }
 
-    public RRSystemDbContext(DbContextOptions options) : base(options)
+    public RRSystemDbContext(DbContextOptions options, IConfiguration configuration) : base(options)
     {
+        _configuration = configuration;
     }
 
     public DbSet<Client> Clients { get; set; }
@@ -31,5 +36,6 @@ public partial class RRSystemDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(RRSystemDbContext).Assembly);
+        modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration(_configuration));
     }
 }

@@ -8,6 +8,13 @@ namespace Revenue_Recognition_System.Configurations;
 
 public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
 {
+    private IConfiguration _config;
+
+    public UserEntityTypeConfiguration(IConfiguration config)
+    {
+        _config = config;
+    }
+
     public void Configure(EntityTypeBuilder<User> builder)
     {
         builder.HasKey(u => u.IdUser);
@@ -19,7 +26,7 @@ public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.Salt).IsRequired();
         builder.Property(u => u.RefreshTokenExp).IsRequired();
 
-        var passwordAndSalt = AuthorizationHelpers.GetHashedPasswordAndSalt("admin123");
+        var passwordAndSalt = AuthorizationHelpers.GetHashedPasswordAndSalt(_config.GetValue<string>("AdminPassword"));
 
         builder.HasData(new User
         {

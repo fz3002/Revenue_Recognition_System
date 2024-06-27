@@ -85,13 +85,13 @@ public class SecurityService : ISecurityService
             new Claim(ClaimTypes.Role, Role.User.ToString())
         };
 
-        SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["SecretKey"]));
+        SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetValue<string>("SecretKey")));
 
         SigningCredentials credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
         JwtSecurityToken token = new JwtSecurityToken(
-            issuer: _configuration["TokenIssuer"],
-            audience: _configuration["TokenAudience"],
+            issuer: _configuration.GetValue<string>("TokenIssuer"),
+            audience: _configuration.GetValue<string>("TokenAudience"),
             claims: userClaim,
             expires: DateTime.Now.AddMinutes(20),
             signingCredentials: credentials

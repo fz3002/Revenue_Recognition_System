@@ -25,7 +25,7 @@ public class DiscountRepository : IDiscountRepository
             .FirstOrDefaultAsync(cancellationToken);
     }
 
-    public async Task<Discount?> GetDiscountAsync(int id, CancellationToken cancellationToken)
+    public async Task<Discount?> GetDiscountAsync(int? id, CancellationToken cancellationToken)
     {
         return await _unitOfWork.GetDBContext().Discounts
             .Include(d => d.Offer)

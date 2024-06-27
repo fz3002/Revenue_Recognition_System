@@ -54,7 +54,8 @@ public class ClientService : IClientService
             }
             case ClientType.Company:
             {
-                var controlClient = await _clientRepository.GetCompanyAsync(clientDto.Properties.Krs, cancellationToken);
+                var controlClient =
+                    await _clientRepository.GetCompanyAsync(clientDto.Properties.Krs, cancellationToken);
                 EnsureClientNotInDatabase(controlClient);
                 var client = new Company(clientDto.Properties.Krs)
                 {
@@ -65,7 +66,8 @@ public class ClientService : IClientService
                 };
                 await _clientRepository.AddCompanyAsync(client, cancellationToken);
                 await _unitOfWork.CommitAsync(cancellationToken);
-                var createdClient = await _clientRepository.GetCompanyAsync(clientDto.Properties.Krs, cancellationToken);
+                var createdClient =
+                    await _clientRepository.GetCompanyAsync(clientDto.Properties.Krs, cancellationToken);
                 return new ClientViewDTO
                 (
                     createdClient.IdClient,
@@ -75,13 +77,12 @@ public class ClientService : IClientService
                     ClientType.NaturalPerson,
                     new Dictionary<string, string>()
                     {
-                        {"CompanyName", createdClient.CompanyName},
-                        {"KRS", createdClient.KRS}
+                        { "CompanyName", createdClient.CompanyName },
+                        { "KRS", createdClient.KRS }
                     }
                 );
-            }
-            default:
-                return null;
+            }default:
+                throw new ArgumentOutOfRangeException();
         }
     }
 

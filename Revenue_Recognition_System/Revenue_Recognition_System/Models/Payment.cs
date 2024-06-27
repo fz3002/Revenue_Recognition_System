@@ -2,7 +2,7 @@ namespace Revenue_Recognition_System.Models;
 
 public class Payment
 {
-    public int IdPayment { get; }
+    public int IdPayment { get; set; }
     public decimal Value { get; }
     public DateOnly Date { get; }
     public int IdContract { get; }

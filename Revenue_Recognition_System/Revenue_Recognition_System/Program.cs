@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Revenue_Recognition_System.AppSettingsConfigurations;
 using Revenue_Recognition_System.Context;
 using Revenue_Recognition_System.Middlewares;
 using Revenue_Recognition_System.Repositories;
@@ -42,7 +41,6 @@ builder.Services.AddSwaggerGen(opt =>
     });
 });
 
-builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("ApiSettings"));
 builder.Services.AddControllers()
     .AddJsonOptions(x =>
     {

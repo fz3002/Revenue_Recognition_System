@@ -50,39 +50,4 @@ public static class AuthorizationHelpers
             rng.GetBytes(randomNumber);
             return Convert.ToBase64String(randomNumber);
         }
-
-        public static string GetUserIdFromAccessToken(string accessToken, string secret)
-        {
-            var tokenValidationParamters = new TokenValidationParameters
-            {
-                ValidateAudience = true,
-                ValidateIssuer = true,
-                ValidateActor = true,
-                ClockSkew = TimeSpan.FromMinutes(2),
-                ValidIssuer = "https://localhost:5001",
-                ValidAudience = "https://localhost:5001",
-                ValidateLifetime = false,
-                IssuerSigningKey =
-                    new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(secret)
-                    )
-            };
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            SecurityToken securityToken;
-            var principal = tokenHandler.ValidateToken(accessToken, tokenValidationParamters, out securityToken);
-            if (securityToken is not JwtSecurityToken jwtSecurityToken || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
-            {
-                throw new SecurityTokenException("Invalid token!");
-            }
-
-            var userId = principal.FindFirst(ClaimTypes.Name)?.Value;
-
-            if (string.IsNullOrEmpty(userId))
-            {
-                throw new SecurityTokenException($"Missing claim: {ClaimTypes.Name}!");
-            }
-
-            return userId;
-        }
 }
